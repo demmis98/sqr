@@ -1,11 +1,16 @@
 package sqr;
 
+import java.awt.Graphics;
+
 import javax.swing.JFrame;
+
+import sqr.sfx.Assets;
 
 public class All {
 	private JFrame frame;
+	private Graphics graphics;
+	private Assets assets;
 	public All() {
-		
 	}
 	
 	public JFrame getFrame() {
@@ -16,7 +21,20 @@ public class All {
 		this.frame = frame;
 	}
 
-	public void addListener() {
-		
+	public Graphics getGraphics() {
+		return graphics;
 	}
+
+	public void setGraphics(Graphics graphics) {
+		this.graphics = graphics;
+	}
+
+	public Assets getAssets() {
+		return assets;
+	}
+
+	public void setAssets(Assets assets) {
+		this.assets = assets;
+	}
+	
 }

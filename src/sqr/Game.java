@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import sqr.sfx.Assets;
 import sqr.states.GameState;
 import sqr.states.State;
 
@@ -15,6 +16,7 @@ public class Game {
 	Canvas canvas;
 	BufferStrategy bs;
 	Graphics g;
+	Assets assets;
 	All all;
 	JFrame frame;
 	State state;
@@ -50,7 +52,10 @@ public class Game {
 	private void init() {
 		all = new All();
 		all.setFrame(frame);
-		
+		all.setGraphics(g);
+		assets = new Assets();
+		assets.init();
+		all.setAssets(assets);
 	}
 	
 	public void run() {
