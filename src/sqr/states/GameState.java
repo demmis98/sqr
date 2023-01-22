@@ -16,14 +16,11 @@ public class GameState extends State {
 		super(all);
 		key = new Key();
 		all.getFrame().addKeyListener(key);
-		player = new Player(all,10,10);
+		player = new Player(all,10,10,key);
 	}
 	@Override
 	public void tick() {
 		key.tick();
-		if(key.up) {
-			System.out.println("up");
-		}
 		player.tick();
 	}
 

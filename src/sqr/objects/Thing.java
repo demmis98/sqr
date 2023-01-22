@@ -9,7 +9,7 @@ import sqr.states.State;
 public abstract class Thing {
 	BufferedImage texture;
 	int width, height;
-	float x, y;
+	protected float x, y;
 	All all;
 	public Thing(All all, BufferedImage texture, int x, int y) {
 		this.all = all;
@@ -27,8 +27,9 @@ public abstract class Thing {
 	public Thing(All all, int x, int y) {
 		this(all, all.getAssets().defThing, x, y);
 	}
-	
 	public void tick() {};
+	
+	
 	public void render() {
 		render(all.getGraphics());
 	}
@@ -38,5 +39,19 @@ public abstract class Thing {
 				g.drawImage(texture, (int) x, (int) y, width, height, null);
 			}
 		}
+	}
+	
+	public float getX() {
+		return x;
+	}
+	public void setX(float x) {
+		this.x = x;
+	}
+	public float getY() {
+		return y;
+	}
+	public void setY(float y) {
+		this.y = y;
 	};
+	
 }
