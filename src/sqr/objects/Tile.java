@@ -1,5 +1,6 @@
 package sqr.objects;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import sqr.All;
@@ -12,6 +13,11 @@ public class Tile extends Thing {
 	}
 
 	public Tile(All all, int x, int y) {
-		this(all, all.getAssets().defTile, x, y);
+		super(all, all.getAssets().defTile, x, y);
+		texture = all.getAssets().defTile;
+	}
+
+	public boolean isSolid() {
+		return solid;
 	}
 }

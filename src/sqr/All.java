@@ -4,14 +4,14 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import sqr.objects.Tile;
+import sqr.objects.Thing;
 import sqr.sfx.Assets;
 
 public class All {
 	private JFrame frame;
 	private Graphics graphics;
 	private Assets assets;
-	private Tile tiles[];
+	private Thing things[];
 	public All() {
 	}
 	
@@ -39,12 +39,12 @@ public class All {
 		this.assets = assets;
 	}
 
-	public Tile[] getTiles() {
-		return tiles;
+	public Thing[] getThings() {
+		return things;
 	}
 
-	public void setTiles(Tile tiles[]) {
-		this.tiles = tiles;
+	public void setTiles(Thing things[]) {
+		this.things = things;
 	}
 	
 }

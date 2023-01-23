@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import sqr.All;
 
 public abstract class Thing {
-	BufferedImage texture;
+	protected BufferedImage texture;
 	int width, height;
 	protected Rectangle hitbox;
 	protected float x, y;
@@ -43,20 +43,32 @@ public abstract class Thing {
 			if(texture != null) {
 				g.drawImage(texture, (int) x, (int) y, width, height, null);
 			}
+			else {
+				System.out.println("Texture is NULL");
+			}
+		}
+		else {
+			System.out.println("Graphics are NULL");
 		}
 	}
 	
 	public float getX() {
-		return x;
+		return hitbox.x;
 	}
 	public void setX(float x) {
 		this.x = x;
 	}
 	public float getY() {
-		return y;
+		return hitbox.y;
 	}
 	public void setY(float y) {
 		this.y = y;
 	};
+	public int getWidth() {
+		return hitbox.width;
+	}
+	public int getHeight() {
+		return hitbox.height;
+	}
 	
 }

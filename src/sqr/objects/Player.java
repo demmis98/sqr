@@ -16,8 +16,8 @@ public class Player extends Alive{
 	
 	private Eyes eyes;
 
-	public Player(All all, int x, int y, Key key) {
-		super(all, all.getAssets().player[2], x, y);
+	public Player(All all, Tile[][] tiles, int x, int y, Key key) {
+		super(all, tiles, all.getAssets().player[2], x, y);
 		this.texture = all.getAssets().player[2];
 		this.key = key;
 		blink = false;
@@ -28,6 +28,9 @@ public class Player extends Alive{
 		idle = true;
 		max = 3;
 		eyes = new Eyes(all, x, y);
+	}
+	public Player(All all, int x, int y, Key key) {
+		this(all, null, x, y, key);
 	}
 	
 	@Override
