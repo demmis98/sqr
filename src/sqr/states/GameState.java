@@ -11,6 +11,7 @@ import sqr.objects.Thing;
 public class GameState extends State {
 	Key key;
 	Player player;
+	
 
 	public GameState(All all) {
 		super(all);

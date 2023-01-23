@@ -1,14 +1,15 @@
 package sqr.objects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import sqr.All;
-import sqr.states.State;
 
 public abstract class Thing {
 	BufferedImage texture;
 	int width, height;
+	protected Rectangle hitbox;
 	protected float x, y;
 	All all;
 	public Thing(All all, BufferedImage texture, int x, int y) {
@@ -23,11 +24,15 @@ public abstract class Thing {
 			width=0;
 			height=0;
 		}
+		hitbox = new Rectangle(x, y, width, height);
 	}
 	public Thing(All all, int x, int y) {
 		this(all, all.getAssets().defThing, x, y);
 	}
-	public void tick() {};
+	public void tick() {
+		hitbox.x = (int) x;
+		hitbox.y = (int) y;
+	};
 	
 	
 	public void render() {
