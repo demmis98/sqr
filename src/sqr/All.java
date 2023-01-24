@@ -1,6 +1,7 @@
 package sqr;
 
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
 

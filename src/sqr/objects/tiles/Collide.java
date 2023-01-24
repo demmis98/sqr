@@ -10,6 +10,7 @@ public class Collide extends Tile {
 	public Collide(All all, BufferedImage texture, BufferedImage colideTex, int x, int y) {
 		super(all, texture, x, y);
 		collidable = true;
+		collisionWallTex = all.getAssets().defTileColWall;
 	}
 	public Collide(All all, BufferedImage texture, int x, int y) {
 		this(all, texture, all.getAssets().defTileCol, x, y);

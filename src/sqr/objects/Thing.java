@@ -7,11 +7,12 @@ import java.awt.image.BufferedImage;
 import sqr.All;
 
 public abstract class Thing {
-	protected BufferedImage texture;
+	protected BufferedImage texture, wallTex;
 	int width, height;
 	protected Rectangle hitbox;
+	protected byte wallHeight = 0, wallOff = 0;
 	protected float x, y, offX, offY;
-	All all;
+	protected All all;
 	public Thing(All all, BufferedImage texture, int x, int y) {
 		this.all = all;
 		this.x = x;
@@ -46,7 +47,22 @@ public abstract class Thing {
 	public void render(Graphics g, BufferedImage texture) {
 		if(g != null) {
 			if(texture != null) {
-				g.drawImage(texture, (int) x, (int) y, width, height, null);
+				if(wallTex != null) {
+					if(wallHeight > 0) {
+						g.drawImage(wallTex, (int) x, (int) y + wallOff, width, wallHeight, null);
+						g.drawImage(texture, (int) x, (int) y - wallHeight, width, height, null);
+					}
+					else if(wallHeight < 0) {
+						g.drawImage(texture, (int) x, (int) y - wallHeight, width, height, null);
+						g.drawImage(wallTex, (int) x, (int) y , width, wallHeight*-1, null);
+					}
+					else {
+						g.drawImage(texture, (int) x, (int) y, width, height, null);
+					}
+				}
+				else {
+					g.drawImage(texture, (int) x, (int) y, width, height, null);
+				}
 			}
 			else {
 				System.out.println("Texture is NULL");

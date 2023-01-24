@@ -146,7 +146,25 @@ public class World {
 	public void render(Graphics g) {
         for(int y = 0; y < tiles.length; y++) {
         	for(int x = 0; x < tiles[y].length; x++) {
-        		tiles[y][x].render(g);
+    			tiles[y][x].render(g);
+        	}
+        }
+	}
+	public void renderNotSolid(Graphics g) {
+        for(int y = 0; y < tiles.length; y++) {
+        	for(int x = 0; x < tiles[y].length; x++) {
+        		if(!tiles[y][x].isSolid()) {
+        			tiles[y][x].render(g);
+        		}
+        	}
+        }
+	}
+	public void renderSolid(Graphics g) {
+        for(int y = 0; y < tiles.length; y++) {
+        	for(int x = 0; x < tiles[y].length; x++) {
+        		if(tiles[y][x].isSolid()) {
+        			tiles[y][x].render(g);
+        		}
         	}
         }
 	}
@@ -158,5 +176,11 @@ public class World {
 	}
 	public int getSpawnY() {
 		return spawnY * all.getAssets().getHeight();
+	}
+	public int getWidth() {
+		return tiles[0].length * all.getAssets().getWidth();
+	}
+	public int getHeight() {
+		return tiles.length * all.getAssets().getWidth();
 	}
 }

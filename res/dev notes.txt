@@ -1,0 +1,1 @@
+first render walls then render blocks

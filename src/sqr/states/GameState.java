@@ -15,6 +15,7 @@ public class GameState extends State {
 
 	public GameState(All all) {
 		super(all);
+		all.getAssets().semi3D = true;
 		key = new Key();
 		all.getFrame().addKeyListener(key);
 		world = new World(all, "test");
@@ -25,13 +26,15 @@ public class GameState extends State {
 		key.tick();
 		world.tick();
 		player.tick();
+		float newOff = (player.getY() / world.getWidth()) * 7;
+		newOff -= 3;
+		getAll().getAssets().defWallHeight = (byte) (newOff);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.pink);
-		g.fillRect(3, 3, 23, 23);
-		world.render(g);
+		world.renderNotSolid(g);
 		player.render(g);
+		world.renderSolid(g);
 	}
 }

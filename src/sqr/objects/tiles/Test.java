@@ -20,5 +20,6 @@ public class Test extends Tile{
 			collisionTex = all.getAssets().test5;
 			stepTex = all.getAssets().test7;
 		}
+		setWalls();
 	}
 }
