@@ -2,33 +2,32 @@ package sqr.world;
 
 import java.awt.Graphics;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import sqr.All;
-import sqr.objects.Tile;
+import sqr.objects.tiles.Collide;
+import sqr.objects.tiles.Cute;
+import sqr.objects.tiles.Dirt;
+import sqr.objects.tiles.Tile;
 
 public class World {
 	Tile tiles[][];
 	byte tileIDs[][];
-	int spawnX, spawnY;
+	private int spawnX, spawnY;
 	All all;
-	Map<Integer, Tile> fromID;
 	
 	public World(All all,String name) {
 		this.all = all;
 		init(name);
 	}
 	private void init(String name) {
-		fromID = new HashMap<Integer, Tile>();
 		load(all.getAssets().mapPath + name + ".txt", true);
 	}
 	
 	private void load(String txt, boolean path_not_inject) {
 		String map = "";
 		String split[];
-		int x = 0, y = 0, spawnX = 0, spawnY = 0;
+		int x = 0, y = 0;
 		if(path_not_inject) {
 		    try {
 		    	File file = new File(txt);
@@ -90,14 +89,23 @@ public class World {
         		}
 	        }
 	        tiles = new Tile[x][y];
+	        System.out.println((char)3);
 	        for(v = 0; v < tileIDs.length; v++) {
 	        	for(h = 0; h < tileIDs[v].length; h++) {
 	        		//System.out.println(tileIDs[v][h]);
-	        		if(fromID.containsKey(tileIDs[v][h])) {
-	        			tiles[v][h] = fromID.get(tileIDs[v][h]);
-	        		}
-	        		else {
-	        			tiles[v][h] = new Tile(all, 0, 0);
+	        		switch(tileIDs[v][h]) {
+	        			case 1:
+	        				tiles[v][h] = new Collide(all, 0, 0);
+	        				break;
+	        			case 2:
+	        				tiles[v][h] = new Dirt(all, 0, 0);
+	        				break;
+	        			case 3:
+	        				tiles[v][h] = new Cute(all, 0, 0);
+	        				break;
+	        			default:
+	        				tiles[v][h] = new Tile(all, 0, 0);
+	        				break;
 	        		}
 	        		tiles[v][h].setX(h*all.getAssets().getWidth());
 	        		tiles[v][h].setY(v*all.getAssets().getHeight());
@@ -126,5 +134,11 @@ public class World {
 	}
 	public Tile[][] getTiles() {
 		return tiles;
+	}
+	public int getSpawnX() {
+		return spawnX * all.getAssets().getWidth();
+	}
+	public int getSpawnY() {
+		return spawnY * all.getAssets().getHeight();
 	}
 }

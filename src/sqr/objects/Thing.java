@@ -10,13 +10,14 @@ public abstract class Thing {
 	protected BufferedImage texture;
 	int width, height;
 	protected Rectangle hitbox;
-	protected float x, y;
+	protected float x, y, offX, offY;
 	All all;
 	public Thing(All all, BufferedImage texture, int x, int y) {
 		this.all = all;
 		this.x = x;
 		this.y = y;
 		if(texture != null) {
+			this.texture = texture;
 			width = texture.getWidth();
 			height = texture.getHeight();
 		}
@@ -25,20 +26,24 @@ public abstract class Thing {
 			height=0;
 		}
 		hitbox = new Rectangle(x, y, width, height);
+		offX = 0;
+		offY = 0;
 	}
 	public Thing(All all, int x, int y) {
 		this(all, all.getAssets().defThing, x, y);
 	}
 	public void tick() {
-		hitbox.x = (int) x;
-		hitbox.y = (int) y;
+		hitbox.x = (int) (x + offX);
+		hitbox.y = (int) (y + offY);
 	};
-	
 	
 	public void render() {
 		render(all.getGraphics());
 	}
 	public void render(Graphics g) {
+		render(g, texture);
+	}
+	public void render(Graphics g, BufferedImage texture) {
 		if(g != null) {
 			if(texture != null) {
 				g.drawImage(texture, (int) x, (int) y, width, height, null);
@@ -50,6 +55,7 @@ public abstract class Thing {
 		else {
 			System.out.println("Graphics are NULL");
 		}
+		
 	}
 	
 	public float getX() {

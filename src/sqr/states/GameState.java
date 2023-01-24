@@ -18,7 +18,7 @@ public class GameState extends State {
 		key = new Key();
 		all.getFrame().addKeyListener(key);
 		world = new World(all, "test");
-		player = new Player(all, world.getTiles(), 10, 10, key);
+		player = new Player(all, world.getTiles(), world.getSpawnX(), world.getSpawnY(), key);
 	}
 	@Override
 	public void tick() {

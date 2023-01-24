@@ -1,7 +1,5 @@
 package sqr.objects;
 
-import java.awt.Graphics;
-
 import sqr.All;
 
 public class Eyes extends Alive {

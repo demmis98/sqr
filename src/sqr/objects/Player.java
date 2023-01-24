@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import sqr.All;
 import sqr.input.Key;
+import sqr.objects.tiles.Tile;
 
 public class Player extends Alive{
 	Key key;
@@ -18,7 +19,6 @@ public class Player extends Alive{
 
 	public Player(All all, Tile[][] tiles, int x, int y, Key key) {
 		super(all, tiles, all.getAssets().player[2], x, y);
-		this.texture = all.getAssets().player[2];
 		this.key = key;
 		blink = false;
 		vert = 0;
@@ -36,8 +36,8 @@ public class Player extends Alive{
 	@Override
 	public void tick() {
 		super.tick();
-		speedY = 0;
 		speedX = 0;
+		speedY = 0;
 		idleX = true;
 		idleY = true;
 		eyes.tick();
@@ -83,7 +83,7 @@ public class Player extends Alive{
 		else {
 			speedY = (vert/max)*speed*root2;
 		}
-		speedY = (vert/max)*speed;
+		//speedY = (vert/max)*speed;
 		idle = idleX && idleY;
 		if(idle) {
 			blink();
@@ -114,9 +114,7 @@ public class Player extends Alive{
 		blink = tBlink <= 0;
 		
 	}
-	private void blink(byte tBlink) {
-		this.tBlink = tBlink;
-	}
+	
 	public void render(Graphics g) {
 		super.render(g);
 		eyes.render(g);
