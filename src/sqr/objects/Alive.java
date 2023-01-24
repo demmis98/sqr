@@ -236,8 +236,8 @@ public abstract class Alive extends Thing{
 		float tempSpeedY = speedY;
 		int minX = (int) getX();
 		int minY = (int) getY();
-		int maxX = (int) (getX() + getWidth());
-		int maxY = (int) (getY() + getHeight());
+		int maxX = (int) (getX() + getWidth() - 1);
+		int maxY = (int) (getY() + getHeight() - 1);
 		minX = minX / all.getAssets().getWidth();
 		minY = minY /  all.getAssets().getHeight();
 		maxX = maxX / all.getAssets().getWidth();
