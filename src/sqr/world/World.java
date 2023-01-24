@@ -66,31 +66,37 @@ public class World {
 	        if(split.length>3) {
 	            spawnY = Integer.parseInt(split[3]);
 	        }
-	        tileIDs = new byte[x][y];
+	        tileIDs = new byte[y][x];
 	        int h = 0;
 	        int v = 0;
 	        int t = 0;
-	        for(int i = 4; i < split .length; i++) {
-	        	String line = split[i];
-	        	for(int c = 0; c < line.length(); c++) {
-	        		if(h >= x) {
-	        			h = 0;
-	        			v++;
-	        		}
-	        		tileIDs[v][h] = (byte) line.charAt(c);
-	        		h++;
-	        		t++;
+	        try {
+		        for(int i = 4; i < split .length; i++) {
+		        	String line = split[i];
+		        	for(int c = 0; c < line.length(); c++) {
+		        		if(h >= x) {
+		        			h = 0;
+		        			v++;
+		        		}
+		        		System.out.println(h+" "+v);
+		        		tileIDs[v][h] = (byte) line.charAt(c);
+		        		h++;
+		        		t++;
+		        		if(t >= x*y) {
+		        			break;
+		        		}
+		        		//System.out.println(line.charAt(c));
+		        		//System.out.println(h+" "+v+" "+t);
+		        	}
 	        		if(t >= x*y) {
 	        			break;
 	        		}
-	        		//System.out.println(line.charAt(c));
-	        		//System.out.println(h+" "+v+" "+t);
-	        	}
-        		if(t >= x*y) {
-        			break;
-        		}
+		        }
 	        }
-	        tiles = new Tile[x][y];
+	        catch(ArrayIndexOutOfBoundsException e) {
+	        	
+	        }
+	        tiles = new Tile[y][x];
 	        for(v = 0; v < tileIDs.length; v++) {
 	        	for(h = 0; h < tileIDs[v].length; h++) {
 	        		//System.out.println(tileIDs[v][h]);
@@ -131,15 +137,15 @@ public class World {
 	}
 
 	public void tick() {
-        for(int x = 0; x < tiles.length; x++) {
-        	for(int y = 0; y < tiles[x].length; y++) {
+        for(int y = 0; y < tiles.length; y++) {
+        	for(int x = 0; x < tiles[y].length; x++) {
         		tiles[y][x].tick();
         	}
         }
 	}
 	public void render(Graphics g) {
-        for(int x = 0; x < tiles.length; x++) {
-        	for(int y = 0; y < tiles[x].length; y++) {
+        for(int y = 0; y < tiles.length; y++) {
+        	for(int x = 0; x < tiles[y].length; x++) {
         		tiles[y][x].render(g);
         	}
         }
