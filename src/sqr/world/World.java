@@ -8,6 +8,7 @@ import sqr.All;
 import sqr.objects.tiles.Collide;
 import sqr.objects.tiles.Cute;
 import sqr.objects.tiles.Dirt;
+import sqr.objects.tiles.Sign;
 import sqr.objects.tiles.Test;
 import sqr.objects.tiles.Tile;
 
@@ -90,9 +91,6 @@ public class World {
         		}
 	        }
 	        tiles = new Tile[x][y];
-	        System.out.println((char)4);
-	        System.out.println((char)5);
-	        System.out.println((byte)'A');
 	        for(v = 0; v < tileIDs.length; v++) {
 	        	for(h = 0; h < tileIDs[v].length; h++) {
 	        		//System.out.println(tileIDs[v][h]);
@@ -115,6 +113,11 @@ public class World {
 	        			default:
 	        				tiles[v][h] = new Tile(all, 0, 0);
 	        				break;
+	        		}
+	        		//tile with a letter
+	        		if(all.getAssets().getFontStart() <= tileIDs[v][h]
+	        				&& tileIDs[v][h] < all.getAssets().getFontEnd()) {
+	        			tiles[v][h] = new Sign(all, 0, 0, tileIDs[v][h]);
 	        		}
 	        		tiles[v][h].setX(h*all.getAssets().getWidth());
 	        		tiles[v][h].setY(v*all.getAssets().getHeight());

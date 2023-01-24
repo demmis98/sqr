@@ -10,6 +10,10 @@ public class Assets {
 	private static final String imgPath = path+"img/"; //path to sprites
 	public static final String mapPath = path+"map/"; //path to maps
 	
+	public static BufferedImage[] font;
+	private int fontStart = 65;
+	private int fontEnd;
+	
 	public static BufferedImage defThing, defAlive, defTile, defTileCol, defTileStep;	//defaults
 	
 	public static BufferedImage[] player;
@@ -30,10 +34,10 @@ public class Assets {
 		defTileStep = sheet.crop(width*2, height*2, width, height);
 		
 		player = new BufferedImage[4];
-		player[0] = sheet.crop(0, height, width, height);
-		player[1] = sheet.crop(width, height, width, height);
-		player[2] = sheet.crop(0, height*2, width, height);
-		player[3] = sheet.crop(width, height*2, width, height);
+		player [0] = sheet.crop(0, height, width, height);
+		player [1] = sheet.crop(width, height, width, height);
+		player [2] = sheet.crop(0, height*2, width, height);
+		player [3] = sheet.crop(width, height*2, width, height);
 		
 		dirt = sheet.crop(width*2, height*3, width, height);
 		
@@ -53,6 +57,17 @@ public class Assets {
 		test5 = sheet.crop(width*5, height, width, height);
 		test6 = sheet.crop(width*5, height*2, width, height);
 		test7 = sheet.crop(width*5, height*3, width, height);
+
+		int maxX = 16;
+		int maxY = 2;
+		SpriteSheet fontSheet = new SpriteSheet(ImageLoader.loadImage(imgPath + "font.png"));
+		font = new BufferedImage[maxX * maxY];
+		for(int y = 0; y < maxY; y++) {
+			for(int x = 0; x < maxX; x++) {
+				font [x + (y * maxX)] = fontSheet.crop(width * x, height * y, width, height);
+			}
+		}
+		fontEnd = fontStart + (maxX * maxY);
 	}
 
 	public static int getWidth() {
@@ -61,6 +76,14 @@ public class Assets {
 
 	public static int getHeight() {
 		return height;
+	}
+	
+	public int getFontStart() {
+		return fontStart;
+	}
+
+	public int getFontEnd() {
+		return fontEnd;
 	}
 	
 }
