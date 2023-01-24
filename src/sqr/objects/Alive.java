@@ -19,11 +19,12 @@ public abstract class Alive extends Thing{
 		this.tiles = tiles;
 		speedY = 0; 
 		speedX = 0;
-
+		/*
 		offX = 1;
 		offY = 1;
 		hitbox.width -= 2;
 		hitbox.height -= 2;
+		*/
 	}
 
 	protected void moveX() {
@@ -87,30 +88,12 @@ public abstract class Alive extends Thing{
 		float tempSpeedY = speedY;
 		int minX = (int) getX();
 		int minY = (int) getY();
-		int maxX = (int) (getX() + getWidth());
-		int maxY = (int) (getY() + getHeight());
+		int maxX = (int) (getX() + getWidth() - 1);
+		int maxY = (int) (getY() + getHeight() - 1);
 		minX = minX / all.getAssets().getWidth();
 		minY = minY /  all.getAssets().getHeight();
 		maxX = maxX / all.getAssets().getWidth();
 		maxY = maxY / all.getAssets().getHeight();
-
-		//expand the testing zone acoording to the direction
-		if(tempSpeedY < 0) {	//up
-			maxY--;
-		}
-		if(tempSpeedY > 0) {	//down
-			if(minY < tiles[minX].length -1) {
-				minY++;
-			}
-		}
-		if(tempSpeedX < 0) {	//left
-			maxX--;
-		}
-		if(tempSpeedX > 0) {	//right
-			if(minX < tiles.length -1) {
-				minX++;
-			}
-		}
 		
 		
 		try {
@@ -118,24 +101,27 @@ public abstract class Alive extends Thing{
 			//start of collision up
 			if(minY > 0) {
 				if(speedY < 0) {
+					minY--;
 					for(int i = minX; i <= maxX; i++) {
 						//System.out.println((minY-1)+" "+i + " "+maxX);
 						int testedX = i;
 						int testedY = minY;
 
-						if(tiles[testedY][testedX].isSolid()) {
+						if(tiles[testedY][testedX].isCollidable()) {
 							int test = (int) (tiles[testedY][testedX].getY() + tiles[testedY][testedX].getHeight() - getY());
-							System.out.println(test);
-							if(test < speedY) {
-								if(test < tempSpeedY) {
-									tempSpeedY = test;
-									collisionUp();
+							if(test > speedY) {
+								if(tiles[testedY][testedX].isSolid()) {
+									if(test > tempSpeedY) {
+										tempSpeedY = test;
+										collisionUp();
+									}
 								}
 								tiles[testedY][testedX].collide();
 								//System.out.println("boom");
 							}
 						}
 					}
+					minY++;
 				}
 			}
 			else {
@@ -147,21 +133,25 @@ public abstract class Alive extends Thing{
 			//start of collision down
 			if(maxY < tiles.length - 1) {
 				if(speedY > 0) {
+					maxY++;
 					for(int i = minX; i <= maxX; i++) {
 						int testedX = i;
 						int testedY = maxY;
 
-						if(tiles[testedY][testedX].isSolid()) {
-							int test = (int) (getY() + getHeight() - tiles[testedY][testedX].getY());
+						if(tiles[testedY][testedX].isCollidable()) {
+							int test = (int) (getY() + getHeight() - tiles[testedY][testedX].getY()) * -1;
 							if(test < speedY) {
-								if(test < speedY) {
-									tempSpeedY = test;
-									collisionDown();
+								if(tiles[testedY][testedX].isSolid()) {
+									if(test < speedY) {
+										tempSpeedY = test;
+										collisionDown();
+									}
 								}
 								tiles[testedY][testedX].collide();
 							}
 						}
 					}
+					maxY--;
 				}
 			}
 			else {
@@ -173,21 +163,25 @@ public abstract class Alive extends Thing{
 			//start of collision left
 			if(minX > 0) {
 				if(speedX < 0) {
+					minX--;
 					for(int i = minY; i <= maxY; i++) {
 						int testedX = minX;
 						int testedY = i;
 
-						if(tiles[testedY][testedX].isSolid()) {
+						if(tiles[testedY][testedX].isCollidable()) {
 							int test = (int) (tiles[testedY][testedX].getX() + tiles[testedY][testedX].getWidth() - getX());
 							if(test > speedX) {
-								if(test > tempSpeedX) {
-									tempSpeedX = test;
-									collisionLeft();
+								if(tiles[testedY][testedX].isSolid()) {
+									if(test > tempSpeedX) {
+										tempSpeedX = test;
+										collisionUp();
+									}
 								}
 								tiles[testedY][testedX].collide();
 							}
 						}
 					}
+					minX++;
 				}
 			}
 			else {
@@ -197,23 +191,27 @@ public abstract class Alive extends Thing{
 			}
 			//end of collision left
 			//start of collision right
-			if(maxX < tiles[minY].length - 1) {
+			if(maxX < tiles.length - 1) {
 				if(speedX > 0) {
+					maxX++;
 					for(int i = minY; i <= maxY; i++) {
 						int testedX = maxX;
 						int testedY = i;
-						if(tiles[testedY][testedX].isSolid()) {
-							collisionRight();
-							int test = (int) (getX() + getWidth() + speedX - tiles[testedY][testedX].getX());
-							if( test < speedX) {
-								if( test < tempSpeedX) {
-									tempSpeedX = test;
-									collisionRight();
+
+						if(tiles[testedY][testedX].isCollidable()) {
+							int test = (int) (getX() + getWidth() - tiles[testedY][testedX].getX()) * -1;
+							if(test < speedX) {
+								if(tiles[testedY][testedX].isSolid()) {
+									if(test < speedX) {
+										tempSpeedX = test;
+										collisionDown();
+									}
 								}
 								tiles[testedY][testedX].collide();
 							}
 						}
 					}
+					maxX--;
 				}
 			}
 			else {
@@ -229,9 +227,10 @@ public abstract class Alive extends Thing{
 		speedY = tempSpeedY;
 		speedX = tempSpeedX;
 
-		System.out.println("x: " + minX + " " + maxX);
-		System.out.println("y: " + minY + " " + maxY);
+		//System.out.println("x: " + minX + " " + maxX);
+		//System.out.println("y: " + minY + " " + maxY);
 	}
+
 	public void step() {
 		float tempSpeedX = speedX;
 		float tempSpeedY = speedY;
@@ -250,7 +249,7 @@ public abstract class Alive extends Thing{
 					for(int i = minX; i <= maxX; i++) {
 						int testedX = i;
 						int testedY = minY;
-						if(tiles[testedY][testedX].isDynamic()) {
+						if(tiles[testedY][testedX].isStepable()) {
 							tiles[testedY][testedX].step();
 						}
 					}
@@ -264,7 +263,7 @@ public abstract class Alive extends Thing{
 						int testedX = i;
 						int testedY = maxY;
 
-						if(tiles[testedY][testedX].isDynamic()) {
+						if(tiles[testedY][testedX].isStepable()) {
 							tiles[testedY][testedX].step();
 						}
 					}
@@ -278,7 +277,7 @@ public abstract class Alive extends Thing{
 						int testedX = maxX;
 						int testedY = i;
 						
-						if(tiles[testedY][testedX].isDynamic()) {
+						if(tiles[testedY][testedX].isStepable()) {
 							tiles[testedY][testedX].step();
 						}
 					}
@@ -292,7 +291,7 @@ public abstract class Alive extends Thing{
 						int testedX = maxX;
 						int testedY = i;
 
-						if(tiles[testedY][testedX].isDynamic()) {
+						if(tiles[testedY][testedX].isStepable()) {
 							tiles[testedY][testedX].step();
 						}
 					}

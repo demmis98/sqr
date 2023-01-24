@@ -8,6 +8,7 @@ import sqr.All;
 import sqr.objects.tiles.Collide;
 import sqr.objects.tiles.Cute;
 import sqr.objects.tiles.Dirt;
+import sqr.objects.tiles.Test;
 import sqr.objects.tiles.Tile;
 
 public class World {
@@ -89,18 +90,26 @@ public class World {
         		}
 	        }
 	        tiles = new Tile[x][y];
-	        System.out.println((char)3);
+	        System.out.println((char)4);
+	        System.out.println((char)5);
+	        System.out.println((byte)'A');
 	        for(v = 0; v < tileIDs.length; v++) {
 	        	for(h = 0; h < tileIDs[v].length; h++) {
 	        		//System.out.println(tileIDs[v][h]);
 	        		switch(tileIDs[v][h]) {
 	        			case 1:
-	        				tiles[v][h] = new Collide(all, 0, 0);
+	        				tiles[v][h] = new Test(all, 0, 0, true);
 	        				break;
 	        			case 2:
-	        				tiles[v][h] = new Dirt(all, 0, 0);
+	        				tiles[v][h] = new Test(all, 0, 0, false);
 	        				break;
 	        			case 3:
+	        				tiles[v][h] = new Collide(all, 0, 0);
+	        				break;
+	        			case 4:
+	        				tiles[v][h] = new Dirt(all, 0, 0);
+	        				break;
+	        			case 5:
 	        				tiles[v][h] = new Cute(all, 0, 0);
 	        				break;
 	        			default:
