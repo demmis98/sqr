@@ -36,7 +36,7 @@ public class Cursor extends Thing{
 		leftClick = mouse.isLeftPressed();
 		rightClick = mouse.isRightPressed();
 		leftClickI = !leftClickH && leftClick;
-		rightClickI = !rightClickH && leftClick;
+		rightClickI = !rightClickH && rightClick;
 		leftClickH = leftClick;
 		rightClickH = rightClick;
 	}

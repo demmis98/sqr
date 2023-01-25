@@ -30,9 +30,9 @@ public class Tile extends Thing {
 	}
 	
 	protected void setWalls() {
-		defWallTex = all.getAssets().getScaledImage(texture, getWidth(), all.getAssets().defWallHeight);
+		defWallTex = all.getAssets().getScaledImage(texture, getWidth(), Math.abs(all.getAssets().defWallHeight));
 		wallTex = defWallTex;
-		collisionWallTex = all.getAssets().getScaledImage(collisionTex, getWidth(), all.getAssets().defWallHeight);
+		collisionWallTex = all.getAssets().getScaledImage(collisionTex, getWidth(), Math.abs(all.getAssets().defWallHeight));
 	}
 
 	public void tick() {
