@@ -84,10 +84,18 @@ public abstract class Alive extends Thing{
 		moveY();
 	}
 	public void collision() {
+		collisionWithOffset(0);
+		if(speedY != 0) {
+			if(speedX != 0) {
+				collisionWithOffset(1);
+			}
+		}
+	}
+	public void collisionWithOffset(int off) {
 		float tempSpeedX = speedX;
 		float tempSpeedY = speedY;
-		int minX = (int) getX();
-		int minY = (int) getY();
+		int minX = (int) getX() - off;
+		int minY = (int) getY() - off;
 		int maxX = (int) (getX() + getWidth() - 1);
 		int maxY = (int) (getY() + getHeight() - 1);
 		minX = minX / all.getAssets().getWidth();
