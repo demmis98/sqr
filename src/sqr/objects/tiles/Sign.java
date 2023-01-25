@@ -3,7 +3,6 @@ package sqr.objects.tiles;
 import sqr.All;
 
 public class Sign extends Tile{
-	byte num;
 	
 	public Sign(All all, boolean solid, int x, int y, byte letter) {
 		super(all, x, y);

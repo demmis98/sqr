@@ -8,7 +8,7 @@ public class Key implements KeyListener {
 	public boolean wasd = false;
 	private boolean[] keys;
 	public boolean up, down, left, right;
-	public boolean s;
+	public boolean b, s;
 	public boolean ctrl;
 	
 	public Key(){
@@ -28,7 +28,8 @@ public class Key implements KeyListener {
 			left = keys[KeyEvent.VK_LEFT];
 			right = keys[KeyEvent.VK_RIGHT];
 		}
-		
+
+		b = keys[KeyEvent.VK_B];
 		s = keys[KeyEvent.VK_S];
 
 		ctrl = keys[KeyEvent.VK_CONTROL];

@@ -21,7 +21,7 @@ public class Game {
 	All all;
 	JFrame frame;
 	State state;
-	byte stateID;
+	byte stateID, newStateID;
 	boolean running;
 	int screen_width, screen_height;
 	
@@ -51,14 +51,18 @@ public class Game {
 		init();
 	}
 	
-	private void init() {
-		all = new All();
+	private void init(byte stateID) {
+		all = new All(this);
 		all.setFrame(frame);
 		all.setGraphics(g);
 		assets = new Assets();
 		assets.init();
 		all.setAssets(assets);
-		stateID = 1;
+		this.stateID = stateID;
+		newStateID = stateID;
+	}
+	private void init() {
+		init((byte) 1);
 	}
 	
 	public void run() {
@@ -97,6 +101,9 @@ public class Game {
 		if(state != null) {
 			state.tick();
 		}
+		if(stateID != newStateID) {
+			updateState();
+		}
 	}
 	
 	private void render() {
@@ -118,9 +125,10 @@ public class Game {
 	}
 	
 	public void setState(byte stateID) {
-		this.stateID = stateID;
+		newStateID = stateID;
 	}
 	public void updateState() {
+		init(newStateID);
 		switch(stateID) {
 		case 1:
 			state = new GameState(all);
@@ -129,8 +137,10 @@ public class Game {
 			state = new BuildState(all);
 			break;
 		default:
+			stateID = 0;
 			break;
 		}
+		System.out.println("Switch to " + state.name);
 	}
 	
 	public void stop(){

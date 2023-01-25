@@ -7,7 +7,8 @@ import sqr.All;
 import sqr.objects.Thing;
 
 public abstract class State {
-	private All all;
+	protected All all;
+	public String name = "state";
 	public State(All all) {
 		this.all = all;
 		all.setThings(new ArrayList<Thing>());

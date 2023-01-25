@@ -3,7 +3,8 @@ package sqr.sfx;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Assets {
 	
@@ -98,6 +99,19 @@ public class Assets {
 	    return resizedImg;
 	}
 
+	public void saveFile(String name, String data) {
+		try {
+	      FileWriter myWriter = new FileWriter(name);
+	      myWriter.write(data);
+	      myWriter.close();
+	      System.out.println("Successfully wrote to the file.");
+	    }
+		catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	}
+	
 	public static int getWidth() {
 		return width;
 	}

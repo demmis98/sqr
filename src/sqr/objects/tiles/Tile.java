@@ -13,6 +13,7 @@ public class Tile extends Thing {
 	protected byte defTimer = 3;
 	protected BufferedImage collisionTex, stepTex, collisionWallTex, defWallTex;
 	protected byte timerCol = 0, timerStep = 0;
+	public byte num = 0;
 
 	public Tile(All all, BufferedImage texture, int x, int y) {
 		super(all, texture, x, y);
