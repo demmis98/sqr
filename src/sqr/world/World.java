@@ -78,7 +78,6 @@ public class World {
 		        			h = 0;
 		        			v++;
 		        		}
-		        		System.out.println(h+" "+v);
 		        		tileIDs[v][h] = (byte) line.charAt(c);
 		        		h++;
 		        		t++;
@@ -162,8 +161,15 @@ public class World {
 	public void renderSolid(Graphics g) {
         for(int y = 0; y < tiles.length; y++) {
         	for(int x = 0; x < tiles[y].length; x++) {
-        		if(tiles[y][x].isSolid()) {
-        			tiles[y][x].render(g);
+        		int renderY = 0;
+    			if(all.getAssets().defWallHeight > 0) {
+    				renderY = y;
+    			}
+    			else {
+    				renderY = tiles.length - y - 1;
+    			}
+        		if(tiles[renderY][x].isSolid()) {
+        				tiles[renderY][x].render(g);
         		}
         	}
         }

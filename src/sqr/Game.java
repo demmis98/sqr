@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import sqr.sfx.Assets;
+import sqr.states.BuildState;
 import sqr.states.GameState;
 import sqr.states.State;
 
@@ -20,6 +21,7 @@ public class Game {
 	All all;
 	JFrame frame;
 	State state;
+	byte stateID;
 	boolean running;
 	int screen_width, screen_height;
 	
@@ -56,10 +58,11 @@ public class Game {
 		assets = new Assets();
 		assets.init();
 		all.setAssets(assets);
+		stateID = 1;
 	}
 	
 	public void run() {
-		state = new GameState(all);
+		updateState();
 		int fps = 60;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
@@ -112,6 +115,22 @@ public class Game {
 		//se cierran comisiones
 		bs.show();
 		g.dispose();
+	}
+	
+	public void setState(byte stateID) {
+		this.stateID = stateID;
+	}
+	public void updateState() {
+		switch(stateID) {
+		case 1:
+			state = new GameState(all);
+			break;
+		case 2:
+			state = new BuildState(all);
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public void stop(){

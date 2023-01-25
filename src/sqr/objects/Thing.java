@@ -71,6 +71,8 @@ public abstract class Thing {
 		else {
 			System.out.println("Graphics are NULL");
 		}
+	}
+	public void renderTop() {
 		
 	}
 	
