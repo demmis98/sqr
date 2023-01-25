@@ -309,7 +309,7 @@ public abstract class Alive extends Thing{
 			if(minX > 0) {
 				if(speedX < 0) {
 					for(int i = minY; i <= maxY; i++) {
-						int testedX = maxX;
+						int testedX = minX;
 						int testedY = i;
 						
 						if(tiles[testedY][testedX].isStepable()) {

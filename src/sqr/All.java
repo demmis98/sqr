@@ -2,6 +2,7 @@ package sqr;
 
 import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -12,7 +13,7 @@ public class All {
 	private JFrame frame;
 	private Graphics graphics;
 	private Assets assets;
-	private Thing things[];
+	private ArrayList<Thing> things;
 	public All() {
 	}
 	
@@ -40,11 +41,11 @@ public class All {
 		this.assets = assets;
 	}
 
-	public Thing[] getThings() {
+	public ArrayList<Thing> getThings() {
 		return things;
 	}
 
-	public void setTiles(Thing things[]) {
+	public void setThings(ArrayList<Thing> things) {
 		this.things = things;
 	}
 	
