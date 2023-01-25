@@ -7,6 +7,7 @@ public class Test extends Tile{
 	public Test(All all, int x, int y, boolean solid) {
 		super(all, x, y);
 		this.solid = solid;
+		defTimer = 3;
 		stepable = true;
 		collidable = true;
 		defTimer = 1;

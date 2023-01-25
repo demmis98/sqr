@@ -9,6 +9,7 @@ public class Collide extends Tile {
 
 	public Collide(All all, BufferedImage texture, BufferedImage colideTex, int x, int y) {
 		super(all, texture, x, y);
+		defTimer = 3;
 		collidable = true;
 		collisionWallTex = all.getAssets().defTileColWall;
 	}

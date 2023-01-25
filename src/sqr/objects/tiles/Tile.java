@@ -9,8 +9,8 @@ import sqr.objects.Thing;
 
 public class Tile extends Thing {
 	protected boolean solid = true;
-	protected boolean stepable = false, collidable = false;
-	protected byte defTimer = 3;
+	protected boolean stepable = false, collidable = true;
+	protected byte defTimer = 0;
 	protected BufferedImage collisionTex, stepTex, collisionWallTex, defWallTex;
 	protected byte timerCol = 0, timerStep = 0;
 	public byte num = 0;
@@ -30,9 +30,13 @@ public class Tile extends Thing {
 	}
 	
 	protected void setWalls() {
-		defWallTex = all.getAssets().getScaledImage(texture, getWidth(), Math.abs(all.getAssets().defWallHeight));
+		int wallH = Math.abs(all.getAssets().defWallHeight);
+		if(wallH == 0) {
+			wallH = 7;
+		}
+		defWallTex = all.getAssets().getScaledImage(texture, getWidth(), wallH);
 		wallTex = defWallTex;
-		collisionWallTex = all.getAssets().getScaledImage(collisionTex, getWidth(), Math.abs(all.getAssets().defWallHeight));
+		collisionWallTex = all.getAssets().getScaledImage(collisionTex, getWidth(), wallH);
 	}
 
 	public void tick() {
@@ -68,7 +72,9 @@ public class Tile extends Thing {
 	}
 	public void collide(float speed) {
 		timerCol = (byte) (speed * 10);
-		wallTex = collisionWallTex;
+		if(defTimer != 0) {
+			wallTex = collisionWallTex;
+		}
 	}
 	public void collide() {
 		collide(defTimer);
