@@ -1,7 +1,7 @@
 package sqr;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -106,4 +106,7 @@ public class All {
 		return game;
 	}
 	
+	public Canvas getCanvas() {
+		return game.getCanvas();
+	}
 }

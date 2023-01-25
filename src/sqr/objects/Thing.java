@@ -95,4 +95,10 @@ public abstract class Thing {
 		return hitbox.height;
 	}
 	
+	public float getXTiles() {
+		return hitbox.x / all.getAssets().getWidth();
+	}
+	public float getYTiles() {
+		return hitbox.y / all.getAssets().getHeight();
+	}
 }

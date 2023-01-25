@@ -89,37 +89,7 @@ public class World {
 		        for(v = 0; v < tileIDs.length; v++) {
 		        	for(h = 0; h < tileIDs[v].length; h++) {
 		        		//System.out.println(tileIDs[v][h]);
-		        		switch(tileIDs[v][h]) {
-		        			case 1:
-		        				tiles[v][h] = new Test(all, 0, 0, true);
-		        				break;
-		        			case 2:
-		        				tiles[v][h] = new Test(all, 0, 0, false);
-		        				break;
-		        			case 3:
-		        				tiles[v][h] = new Collide(all, 0, 0);
-		        				break;
-		        			case 4:
-		        				tiles[v][h] = new Dirt(all, 0, 0);
-		        				break;
-		        			case 5:
-		        				tiles[v][h] = new Cute(all, 0, 0);
-		        				break;
-		        			default:
-		        				tiles[v][h] = new Tile(all, 0, 0);
-		        				break;
-		        		}
-		        		//tile with a letter
-		        		if(all.getAssets().getFontStart() <= tileIDs[v][h]
-		        				&& tileIDs[v][h] < all.getAssets().getFontEnd()) {
-		        			tiles[v][h] = new Sign(all, 0, 0, tileIDs[v][h]);
-		        		}
-		        		if(all.getAssets().getFontStart() <= tileIDs[v][h] * -1
-		        				&& tileIDs[v][h] * -1 < all.getAssets().getFontEnd()) {
-		        			tiles[v][h] = new Sign(all, true, 0, 0, tileIDs[v][h]);
-		        		}
-		        		tiles[v][h].setX(h*all.getAssets().getWidth());
-		        		tiles[v][h].setY(v*all.getAssets().getHeight());
+		        		tiles[v][h] = tile(tileIDs[v][h], h, v);
 		        	}
 		        }
 	        }
@@ -180,6 +150,44 @@ public class World {
         	}
         }
 	}
+	
+	public Tile tile(byte id, int x, int y) {
+		Tile resp = null;
+		switch(id) {
+			case 1:
+				resp = new Test(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight(), true);
+				break;
+			case 2:
+				resp = new Test(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight(), false);
+				break;
+			case 3:
+				resp = new Collide(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight());
+				break;
+			case 4:
+				resp = new Dirt(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight());
+				break;
+			case 5:
+				resp = new Cute(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight());
+				break;
+			default:
+				resp = new Tile(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight());
+				break;
+		}
+		//tile with a letter
+		if(all.getAssets().getFontStart() <= id
+				&& id < all.getAssets().getFontEnd()) {
+			resp = new Sign(all, x * all.getAssets().getWidth(), y * all.getAssets().getHeight(), id);
+		}
+		if(all.getAssets().getFontStart() <= id * -1
+				&& id * -1 < all.getAssets().getFontEnd()) {
+			resp = new Sign(all, true, x * all.getAssets().getWidth(), y * all.getAssets().getHeight(), id);
+		}
+		return resp;
+	}
+	public Tile tile(byte id) {
+		return tile(id, 0, 0);
+	}
+	
 	public Tile[][] getTiles() {
 		return tiles;
 	}

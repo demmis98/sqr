@@ -9,7 +9,7 @@ public class Key implements KeyListener {
 	private boolean[] keys;
 	public boolean up, down, left, right;
 	public boolean b, s;
-	public boolean ctrl;
+	public boolean ctrl, space;
 	
 	public Key(){
 		keys = new boolean[256];
@@ -33,6 +33,7 @@ public class Key implements KeyListener {
 		s = keys[KeyEvent.VK_S];
 
 		ctrl = keys[KeyEvent.VK_CONTROL];
+		space = keys[KeyEvent.VK_SPACE];
 	}
 
 	@Override

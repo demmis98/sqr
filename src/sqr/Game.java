@@ -146,4 +146,8 @@ public class Game {
 	public void stop(){
 		running = false;
 	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
 }

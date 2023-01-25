@@ -2,6 +2,7 @@ package sqr.world;
 
 import sqr.All;
 import sqr.input.Key;
+import sqr.objects.tiles.Tile;
 
 public class WorldBuilder{
 	protected All all;
@@ -25,37 +26,7 @@ public class WorldBuilder{
 		byte id = 0;
 		for(int y = 0; y < world.getTiles().length; y++) {
 			for(int x = 0; x < world.getTiles()[y].length; x++) {
-				codeName = world.getTiles()[y][x].toString();
-				codeName = codeName.split("@")[0];
-				codeName = codeName.split(".tiles.")[1];
-				switch(codeName) {
-					case "Test":
-						if(world.getTiles()[y][x].isSolid()) {
-							id = 1;
-						}
-						else {
-							id = 2;
-						}
-						break;
-					case "Collide":
-						id = 3;
-						break;
-					case "Dirt":
-						id = 4;
-						break;
-					case "Cute":
-						id = 5;
-						break;
-					case "Sign":
-						id = world.getTiles()[y][x].num;
-						if(world.getTiles()[y][x].isSolid()) {
-							id = (byte) (id * -1);
-						}
-						break;
-					default:
-						id = 1; 
-						break;
-				}
+				id = id(world.getTiles()[y][x]);
 				save += all.getChar(id);
 			}
 		}
@@ -86,6 +57,44 @@ public class WorldBuilder{
 				saveWorld();
 			}
 		}
+	}
+	
+	public byte id(Tile get) {
+		byte id = 0;
+		String codeName = get.toString();
+		codeName = codeName.split("@")[0];
+		codeName = codeName.split(".tiles.")[1];
+		switch(codeName) {
+			case "Test":
+				if(get.isSolid()) {
+					id = 1;
+				}
+				else {
+					id = 2;
+				}
+				break;
+			case "Collide":
+				id = 3;
+				break;
+			case "Dirt":
+				id = 4;
+				break;
+			case "Cute":
+				id = 5;
+				break;
+			case "Sign":
+				id = get.num;
+				if(get.isSolid()) {
+					id = (byte) (id * -1);
+				}
+				id --;
+				id += all.getAssets().getFontStart();
+				break;
+			default:
+				id = 1; 
+				break;
+		}
+		return id;
 	}
 
 }
