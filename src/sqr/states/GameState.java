@@ -16,11 +16,11 @@ public class GameState extends State {
 	public GameState(All all) {
 		super(all);
 		name = "game state";
-		all.getAssets().semi3D = true;
+		all.getAssets().semi3D = false;
 		key = new Key();
 		all.getFrame().addKeyListener(key);
 		world = new World(all, "test");
-		player = new Player(all, world.getTiles(), world.getSpawnX(), world.getSpawnY(), key);
+		player = new Player(all, this, world.getSpawnX(), world.getSpawnY(), key);
 		all.addThing(player);
 	}
 	
@@ -49,5 +49,9 @@ public class GameState extends State {
 			all.getThings().get(i).render(g);
 		}
 		world.renderSolid(g);
+	}
+
+	public World getWorld() {
+		return world;
 	}
 }

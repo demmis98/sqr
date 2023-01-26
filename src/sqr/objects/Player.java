@@ -1,10 +1,11 @@
 package sqr.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import sqr.All;
 import sqr.input.Key;
-import sqr.objects.tiles.Tile;
+import sqr.states.GameState;
 
 public class Player extends Alive{
 	Key key;
@@ -17,8 +18,8 @@ public class Player extends Alive{
 	
 	private Eyes eyes;
 
-	public Player(All all, Tile[][] tiles, int x, int y, Key key) {
-		super(all, tiles, all.getAssets().player[2], x, y);
+	public Player(All all, GameState gameState, int x, int y, Key key) {
+		super(all, gameState, all.getAssets().player[2], x, y);
 		this.key = key;
 		blink = false;
 		vert = 0;
@@ -118,5 +119,9 @@ public class Player extends Alive{
 	public void render(Graphics g) {
 		super.render(g);
 		eyes.render(g);
+		if(all.dev) {
+			g.setColor(Color.RED);
+			g.fillRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		}
 	}
 }
