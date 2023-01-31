@@ -15,7 +15,7 @@ public class All {
 	private Assets assets;
 	private ArrayList<Thing> things;
 	private Game game;
-	public final boolean dev = false; //dev settings
+	public final boolean dev = true;
 	public All(Game game) {
 		this.game = game;
 	}
@@ -60,9 +60,7 @@ public class All {
 		}
 		return resp;
 	}
-	public boolean linesOverlap(float x1, float w1, float x2, float w2) {
-		return (x2 <= x1 && x1 <= x2 + w2) || (x2 <= x1 + w1 && x1 + w1 <= x2 + w2);
-	}
+	
 	
 	public JFrame getFrame() {
 		return frame;

@@ -10,7 +10,10 @@ import sqr.objects.Player;
 import sqr.world.World;
 import sqr.world.WorldBuilder;
 
-public class BuildState extends GameState {
+public class BuildState extends State {
+	Key key;
+	Player player;
+	World world;
 	WorldBuilder worldBuilder;
 	Cursor cursor;
 
@@ -18,7 +21,13 @@ public class BuildState extends GameState {
 		super(all);
 		name = "build state";
 		all.getAssets().semi3D = true;
+		key = new Key();
+		all.getFrame().addKeyListener(key);
+		
+		world = new World(all, "test");
 		worldBuilder = new WorldBuilder(all, key, world);
+		player = new Player(all, world.getTiles(), world.getSpawnX(), world.getSpawnY(), key);
+		all.addThing(player);
 		cursor = new Cursor(all, all.getFrame().getWidth() / 2, all.getFrame().getHeight() / 2);
 	}
 	
